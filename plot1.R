@@ -12,11 +12,14 @@ SCC <- readRDS("data/Source_Classification_Code.rds")
 #calculate totals by year
 library(dplyr)
 byyear <- group_by(NEI,year) %>% summarize(totalems=sum(Emissions))
-
 #plot1 PNG generation
 png("plot1.png", width = 480, height = 480, units = "px") 
+#create plot with a point for each year with measurements
 with(byyear,plot(year,totalems, xlab="Year",ylab=expression("Total " * PM[2.5] * " emissions (tons)")))
-with(byyear,lines(year,totalems))
-title(main = expression("Evolution of total " * PM[2.5] * " from 1999 to 2008"))  
+#add regression line to show trend
+model <-lm(totalems ~ year, byyear)
+abline(model, lwd=2)
+#add title
+title(main = expression("Evolution of total US " * PM[2.5] * " emissions from 1999 to 2008"))  
 dev.off()
 
