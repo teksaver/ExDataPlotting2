@@ -16,6 +16,7 @@ byyear <- filter(NEI,fips=="24510")  %>%
   summarize(totalems=sum(Emissions))
 
 #plot3 PNG generation
+library(ggplot2)
 png("plot3.png", width = 600, height = 480, units = "px") 
 ggplot(byyear,aes(x=factor(year), y=totalems, color=type, group=type))+ 
   geom_point() + 

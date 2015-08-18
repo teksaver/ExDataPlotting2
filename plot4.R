@@ -19,6 +19,7 @@ byyear <- NEI %>% filter(SCC %in%coalIds)  %>%
   summarize(totalems=sum(Emissions))
 
 #plot4 PNG generation
+library(ggplot2)
 png("plot4.png", width = 600, height = 480, units = "px") 
 ggplot(byyear,aes(x=factor(year), y=totalems))+ 
   geom_point() + 
